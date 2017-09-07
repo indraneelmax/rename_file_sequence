@@ -13,7 +13,7 @@ rename_file_sequence --help
 
 usage: rename_file_sequence [-h] [--pad [PAD]] [--mock] [--verbose]
 
-                            [input_dir]
+   [input_dir]
 
 Given a directory identifies a sequence of files based on file name and
 extension, and renames them sequentially keeping the same order! Sample usage:
