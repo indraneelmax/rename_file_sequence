@@ -82,8 +82,14 @@ def group_and_rename_files(item_list):
         for data in group:
             if pad < len(data[1]):
                 pad = len(data[1]) # Find min padding
-            seq_numb.append(data[1])
-            file_data.append(data)
+            try:
+                num = int(data[1])
+                seq_numb.append(data[1])
+                file_data.append(data)
+            except ValueError,e:
+                # Did not find any digits in file name, report as invalid
+                print "Invalid file name {}{}{}.{}".format(*data)
+                continue
         rename_file(file_data,seq_numb, pad)
 
 
