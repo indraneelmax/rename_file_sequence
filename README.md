@@ -12,26 +12,43 @@ rename_file_sequence --help
 
 
 usage: rename_file_sequence [-h] [--pad [PAD]] [--mock] [--verbose]
+
                             [input_dir]
 
 Given a directory identifies a sequence of files based on file name and
 extension, and renames them sequentially keeping the same order! Sample usage:
 rename_file_sequence.py /path/to/directory
 
+
 positional arguments:
+
+
   input_dir    Path to input directory containing files
 
+
 optional arguments:
+
   -h, --help   show this help message and exit
+  
+  
   --pad [PAD]  minimum padding for digits in renamed sequence, default is 2
+  
+  
   --mock       mock mode, do not rename
+  
+  
   --verbose    verbose mode
 
+
 Sample Output:
+
+
 rename_file_sequence /path/to/directory --verbose --pad 3
 
 Looking at Input directory: /path/to/directory
+
 123asda234.png file is not valid format, will not rename
+
 123asda23.png file is not valid format, will not rename
 
 Renamed ashish11.jpg  -->  ashish001.jpg
