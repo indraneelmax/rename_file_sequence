@@ -5,6 +5,11 @@ import re
 from itertools import groupby
 
 
+__input_dir = ""
+__mock = False
+__pad = 2
+__verbose = False
+
 def filter_files(file_list):
     """
     Apply our regex to split file name into tokens to identify sequence
@@ -29,9 +34,9 @@ def rename_file(file_data, seq_numb, pad):
     :param pad: padding to be used for detected sequence
 
     """
-    if min_pad > pad:
+    if __pad > pad:
         # Always keep min_pad for renamed sequence
-        pad = min_pad
+        pad = __pad
 
     sort_seq_numb = sorted(seq_numb, key=lambda z: int(z))
     for index, value in enumerate(sort_seq_numb):
@@ -39,16 +44,16 @@ def rename_file(file_data, seq_numb, pad):
         old_name = "{}{}.{}".format(file_data[index][0], sort_seq_numb[index], file_data[index][-1])
         new_name = "{}{}.{}".format(file_data[0][0], seq, file_data[0][-1])
 
-        if not mock:
+        if not __mock:
             # This should ideally always succeed for file names with a valid format
             try:
-                os.rename(os.path.join(args.input_dir, old_name), os.path.join(args.input_dir, new_name))
-                if verbose:
+                os.rename(os.path.join(__input_dir, old_name), os.path.join(__input_dir, new_name))
+                if __verbose:
                     print "Renamed {}  -->  {}".format(old_name, new_name)
             except OSError:
                 print "{}{}{}.{} file is not valid format, will not rename".format(*file_data[index])
         else:
-            if os.path.exists(os.path.join(args.input_dir, old_name)):
+            if os.path.exists(os.path.join(__input_dir, old_name)):
                 print "Will rename {}  -->  {}".format(old_name, new_name)
             else:
                 print "{}{}{}.{} file is not valid format, will not rename".format(*file_data[index])
@@ -97,9 +102,10 @@ def find_files(input_dir):
     return file_list
 
 
-def get_args():
+def get_args(args):
     """
     Process and return script arguments
+    :param args: input arguments list
     :return:
         (argparse.Namespace): arguments
     """
@@ -115,18 +121,28 @@ def get_args():
                         help="mock mode, do not rename")
     parser.add_argument("--verbose", action='store_true', default=False,
                         help="verbose mode")
-    args = parser.parse_args()
+    args = parser.parse_args(args)
     if not os.path.isdir(args.input_dir):
         raise IOError("{} is not a directory".format(args.input_dir))
     return args
 
 
-if __name__ == "__main__":
+def run(args):
+    """
+    Main starting point
 
-    args = get_args()
-    mock = args.mock
-    verbose = args.verbose
-    min_pad = args.pad
+    :param input_dir: Directory to look for files (top level only)
+    :param pad: minimum padding for digits in renamed sequence, default is 2
+    :param mock: mock mode, do not rename files
+    :param verbose: verbose mode
+    :return:
+    """
+    args = get_args(args)
+    global __input_dir, __mock, __verbose, __pad
+    __input_dir = args.input_dir
+    __mock = args.mock
+    __verbose = args.verbose
+    __pad = args.pad
     print "Looking at Input directory: {}".format(args.input_dir)
     all_files = find_files(args.input_dir)
     file_items = filter_files(all_files)

@@ -1,0 +1,6 @@
+#!/usr/bin/python
+import sys
+import rename_file_sequence.rename_file_sequence as rfc
+
+#Do not pass the script path itself
+rfc.run(sys.argv[1:])
