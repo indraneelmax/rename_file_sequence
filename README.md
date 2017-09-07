@@ -2,8 +2,6 @@
 
 **How to Install**
 
-cd <your workspace>
-
 git clone https://github.com/indraneelmax/rename_file_sequence
 
 cd rename_file_sequence
