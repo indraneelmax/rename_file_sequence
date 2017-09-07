@@ -1,5 +1,18 @@
 # rename_file_sequence
 
+**How to Install**
+
+cd <your workspace>
+
+git clone https://github.com/indraneelmax/rename_file_sequence
+
+cd rename_file_sequence
+
+pip install .
+
+rename_file_sequence --help
+
+
 usage: rename_file_sequence [-h] [--pad [PAD]] [--mock] [--verbose]
                             [input_dir]
 
