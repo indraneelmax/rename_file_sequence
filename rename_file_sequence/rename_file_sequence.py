@@ -137,10 +137,8 @@ def run(args):
     """
     Main starting point
 
-    :param input_dir: Directory to look for files (top level only)
-    :param pad: minimum padding for digits in renamed sequence, default is 2
-    :param mock: mock mode, do not rename files
-    :param verbose: verbose mode
+    :param args: list of arguments
+
     :return:
     """
     args = get_args(args)
